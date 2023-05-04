@@ -1,0 +1,5 @@
+Abdelrahman;Dazai;55555555;KL;Dazai@,com;1000;CCU;23
+Muhammed;Khairi;66653797.0;KL;hamadakhairi09@gmail.com;750.0;ICU;24.0
+Ahmed;Mahmoud;60426062.0;Kwd;Ahmed@gmail.com;1000.0;CCU;21.0
+Islam;Omar;55332244.0;Egyp;Islam25Omar@ht.com;100.0;SAV;29.0
+    ;   ;999999.0;    ;@.com;5000.0;ICU;89.0

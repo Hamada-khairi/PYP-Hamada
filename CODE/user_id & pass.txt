@@ -1,0 +1,8 @@
+MuhammedSU;12345678;-;-;Muhammed;Khairi;60008035;KW;Muhammed@.com;SU;26
+AU00005;AU00005;-;-;Hamada;Khairi;66653797;KL;hamada@.com;AU;23
+CCU00005;CCU00002;9915.0;85;Ahmed;Mahmoud;60426062;KW;Mh@.com;CCU;29
+CCU00005;Dazai99;19329.0;171;Abdelrahman;Dazai;55555555;KL;Dazai@.com;CCU;23
+AU00001;AU00001;-;-;Usman;Hashmi;89898989.0;Kl;Usman@apu.com;AU;43.0
+ICU00001;ICU00001;500.0;-;Diana;Khaled;44527868.0;Penang;Diana@gmail.com;ICU;26.0
+SAV00001;SAV00001;100.0;-;Dazai;con;85234679.0;SAD;Dazai_con@gmail.com;SAV;25.0
+CCU00002;CCU00002;500.0;-;Mahmoud;Mustafa;5456789.0;UAE;Mahmoud344@gmail.com;CCU;66.0

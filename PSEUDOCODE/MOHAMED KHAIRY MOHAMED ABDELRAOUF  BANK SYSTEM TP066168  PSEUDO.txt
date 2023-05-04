@@ -1,0 +1,2118 @@
+#Name THEN  MOHAMED KHAIRY MOHAMED ABDELRAOUF 
+#TP NO THEN  TP066168
+#The Super User Account is THEN  
+#Super User Name THEN  MuhammedSU
+#Password  THEN 12345678
+
+
+
+BEGIN
+
+
+
+
+
+#The Main Logic Fuction
+DEFINE  main_menu() THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*==================================================*\n"
+        "| ---------Welcome to Hamada's Bank Mangment------ |\n"
+        "*==================================================*\n"
+        "| =<< 1.            Open a new account         >>= |\n"
+        "| =<< 2.                  login                >>= |\n"
+        "| =<< 3.       Curnncey Converter Calculatour  >>= |\n"
+        "| =<< 4.                Exit/Quit              >>= |\n"
+        "*==================================================*\n"
+    )
+
+
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; ")
+
+
+        IF choiceNumber == "1" THEN 
+            CALL OPenAccMenu() # Open Account Menu  
+
+        ELSEIF choiceNumber == "2" THEN 
+            CALL Login() 
+        
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL Currncy_Conv_Calc() #Currncy Converter Calculator 
+            
+
+        ELSEIF choiceNumber == "4" THEN 
+            CALL exit() 
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-4   |\n"
+            "*===================*"
+        )
+        CALL main_menu() 
+       ENDIF
+     ENDDO
+ENDDEFINE
+
+
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays The Open Account Menu
+DEFINE  OPenAccMenu() THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*==================================================*\n"
+        "| ------- Welcome to Opening Account Menu -------- |\n"
+        "*==================================================*\n"
+        "| =<< 1.              Islamic Account          >>= |\n"
+        "| =<< 2.              Current Account          >>= |\n"
+        "| =<< 3.              Saving Account           >>= |\n"
+        "| =<< 4.            Return to Manin Menu       >>= |\n"
+        "*==================================================*\n"
+    )
+
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+
+        IF choiceNumber == "1" THEN 
+            CALL IOPenAcc() # Islamic Open Account 
+        
+        ELSEIF choiceNumber == "2" THEN 
+            CALL COPenAcc() # Current Open Account 
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL SaVOPenAcc() #Saving Open Account 
+
+        ELSEIF choiceNumber == "4" THEN 
+            CALL main_menu() 
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-4   |\n"
+            "*===================*"
+        )
+            CALL RETURN OPenAccMenu() 
+
+        ENDIF
+    ENDDO
+ENDDEFINE
+
+
+
+#========================================================================================================================================================================
+
+#A Fuction That Open An Account For Islamic Customer 
+DEFINE  IOPenAcc() THEN 
+    DISPLAY(
+                "*=====================================*\n"
+                "| -----Please Fill Up The Form------- |\n"
+                "*=====================================*\n"
+        )
+    
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ")  
+    SET AccType   TO "ICU"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 500 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 500RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("Fourm.txt","a") as FILE HANDLE  THEN 
+                SET recored TO First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+STRING(Amount_Diposit)+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                    "*=======================================================================================================*\n"
+                    "| -----Thank You For Filling Up The Form We Will Contact you IN your email within 2 Busniss Days------- |\n"
+                    "*=======================================================================================================*\n"
+                )
+            BREAK
+            
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+
+           ENDWITH
+        ENDIF
+      ENDDO
+ENDDEFINE
+        
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Open An Account For Saving Customer 
+DEFINE  SaVOPenAcc() THEN 
+    DISPLAY(
+                "*=====================================*\n"
+                "| -----Please Fill Up The Form------- |\n"
+                "*=====================================*\n"
+        )
+    
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ") 
+    SET AccType   TO "SAV"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 100RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 100 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 100RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("Fourm.txt","a") as FILE HANDLE  THEN 
+                SET recored TO First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+STRING(Amount_Diposit)+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                    "*=======================================================================================================*\n"
+                    "| -----Thank You For Filling Up The Form We Will Contact you IN your email within 2 Busniss Days------- |\n"
+                    "*=======================================================================================================*\n"
+                )
+            BREAK
+            
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+            
+        ENDIF
+       ENDDO
+        ENDWITH
+
+
+
+
+
+#========================================================================================================================================================================
+
+#A Fuction That Open An Account For Current Customer 
+DEFINE  COPenAcc() THEN 
+    DISPLAY(
+                "*=====================================*\n"
+                "| -----Please Fill Up The Form------- |\n"
+                "*=====================================*\n"
+        )
+    
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ") 
+    SET AccType   TO "CCU"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 500 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 500RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("Fourm.txt","a") as FILE HANDLE  THEN 
+                SET recored TO First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+STRING(Amount_Diposit)+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                    "*=======================================================================================================*\n"
+                    "| -----Thank You For Filling Up The Form We Will Contact you IN your email within 2 Busniss Days------- |\n"
+                    "*=======================================================================================================*\n"
+                )
+            BREAK
+            
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+            
+        ENDIF
+
+           ENDWITH
+         ENDDO
+ENDDDEFINE
+
+            
+        
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Makes The Login Process
+DEFINE  Login() THEN 
+    SET User_Name TO GET("\n=<< Enter Your User Name; ")
+    SET Password  TO GET("=<< Enter Your PassWord; ")
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET login_Details TO "notfound"
+
+        LOOP recordline IN FILE HANDLE  THEN 
+            SET recoredlist TO recordline.strip().split(";")
+            IF recoredlist[0] == User_Name AND recoredlist[1] == Password THEN 
+                SET login_Details TO recoredlist
+                BREAK
+
+        IF login_Details == "notfound" THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -- Incorrect User Name 0r password, try again -- |\n"
+                "*==================================================*\n"
+            )
+
+        ELSE THEN 
+            DISPLAY(
+                "*==============================*\n"
+                "| -- Login successfull......-- |\n"
+                "*==============================*\n"
+            )
+            IF login_Details != "notfound" THEN 
+                DISPLAY(
+         "\n*=================================================*\n"
+        f"| --- Welcome to Hamada's Bank THEN  {login_Details[4]} ----- |\n"
+         "*=================================================*\n"
+                )
+
+            IF login_Details[9] == "SU" THEN 
+                CALL Spuer_User_Menu(login_Details) 
+
+            ELSEIF login_Details[9] == "AU" THEN 
+                CALL Admin_Menu(login_Details) 
+
+            ELSEIF login_Details[9] == "CCU" THEN 
+                CALL Cureent_Customer_Menu(login_Details) 
+
+            ELSEIF login_Details[9] == "ICU" THEN 
+                CALL Islamic_Customer_Menu(login_Details) 
+
+            ELSEIF login_Details[9] == "SAV" THEN 
+                CALL Sa_aCC_Menu(login_Details) # Saving Account Menu 
+
+            ELSE THEN 
+                DISPLAY(
+                "*==================================================*\n"
+                "| -- Incorrect User Name 0r password, try again -- |\n"
+                "*==================================================*\n"
+            )
+                RETURN login_Details
+
+            ENDIF
+         ENDLOOP
+    ENDWITH
+ENDDEFINE
+
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays The Super User Menu
+DEFINE  Spuer_User_Menu(login_Details) THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*==================================================*\n"
+        "| ---------- Welcome to Super User Menu ---------- |\n"
+        "*==================================================*\n"
+        "| =<< 1.      Display All Pending Accounts     >>= |\n"
+        "| =<< 2.           Add Admin Account           >>= |\n"
+        "| =<< 3.      Add Current Customer Acount      >>= |\n"
+        "| =<< 4.      Add Islamic Customer Acount      >>= |\n"
+        "| =<< 5.       Add Saving Customer Acount      >>= |\n"
+        "| =<< 6.        Display All User Accounts      >>= |\n"
+        "| =<< 7.          Change The Passsword         >>= |\n"
+        "| =<< 8.          Change The User Name         >>= |\n"
+        "| =<< 9.        Show All The TransAction       >>= |\n"
+        "| =<< 10.           Return To Main Menu        >>= |\n"
+        "| =<< 11.              Exit/Quit               >>= |\n"
+        "*==================================================*\n"
+    )
+        
+
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; ")
+
+        IF choiceNumber == "1" THEN 
+            CALL Display_All_Pending() 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "2" THEN 
+            CALL AddAdmin() 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "3" THEN 
+            Add_CCU_ACC() #Add Current Customer User
+            RETURN Spuer_User_Menu(login_Details)
+
+        
+        ELSEIF choiceNumber == "4" THEN 
+            CALL Add_ICU_ACC()#Add Islamic Customer User 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "5" THEN 
+            CALL Add_Sa_aCC() #Add Saving Customer User 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "6" THEN 
+            CALL Display_All_US() #Display All The Users 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "7" THEN 
+            CALL Change_Pass(login_Details)# Change The Password 
+
+
+        ELSEIF choiceNumber == "8" THEN 
+            CALL Change_User_Name(login_Details) 
+
+        ELSEIF choiceNumber == "9" THEN 
+            Show_All_Trans() # Show All Users TransAction 
+            CALL RETURN Spuer_User_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "10" THEN 
+            CALL RETURN main_menu() 
+
+        ELSEIF choiceNumber == "11" THEN 
+            CALL exit() 
+
+        ELSE THEN 
+             DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-11   |\n"
+            "*===================*\n"
+        )
+        CALL RETURN Spuer_User_Menu()
+       ENDIF
+     ENDWITH
+   ENDDO
+ENDDEFINE 
+        
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Add A New Admin Account
+DEFINE  AddAdmin() THEN 
+    CALL SET user_id TO genid("Admin User") 
+    SET user_pass TO user_id
+    DISPLAY("User ID; ", user_id)
+    DISPLAY("User PassWord; ",user_pass)
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ")  
+    SET AccType   TO "AU"
+    SET loan TO "-"
+    SET Amount_Diposit  TO "-"
+    DOWHILE True THEN 
+        TRY THEN 
+            SET age TO FLOAT(GET("=<< Please Enter your age; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Age")
+    DOWHILE age >= 18 THEN 
+        WITH  OPEN ("user_id & pass.txt","a") as FILE HANDLE  THEN 
+            SET recored TO user_id+";"+user_pass+";"+STRING(Amount_Diposit)+";"+loan+";"+First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+AccType+";"+STRING(age)+"\n"
+            FILE HANDLE WRITE(recored)
+            DISPLAY(
+                    "*==============================================================*\n"
+                    "| -------The Admin Account Has Been Added Successfully-------- |\n"
+                    "*==============================================================*\n"
+            )
+        BREAK
+    
+    ELSE THEN 
+        DISPLAY(
+            "*==================================================*\n"
+            "| -----You Are To Young For Opening Account------- |\n"
+            "*===================================================*"
+        )
+    ENDIF
+   ENDDO
+     ENDWITH
+ENDDEFINE
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Add A New Islamic Account
+DEFINE  Add_ICU_ACC() THEN 
+    CALL SET user_id TO genid("Islamic Customer User") 
+    SET user_pass TO user_id
+    DISPLAY("User ID; ", user_id)
+    DISPLAY("User PassWord; ",user_pass)
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ")  
+    SET AccType   TO "ICU"
+    SET loan TO "-"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 500 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 500RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("user_id & pass.txt","a") as FILE HANDLE  THEN 
+                SET recored TO user_id+";"+user_pass+";"+STRING(Amount_Diposit)+";"+loan+";"+First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                        "*================================================================*\n"
+                        "| -------The Islamic Account Has Been Added Successfully-------- |\n"
+                        "*================================================================*\n"
+                )
+            BREAK
+        
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+
+       ENDIF
+      ENDDO
+         ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================
+
+#A Fuction That Add A New Saving Account
+DEFINE  Add_Sa_aCC() THEN 
+    CALL SET user_id TO genid("Saving Customer User") 
+    SET user_pass TO user_id
+    DISPLAY("User ID; ", user_id)
+    DISPLAY("User PassWord; ",user_pass)
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ")  
+    SET AccType   TO "SAV"
+    SET loan TO "-"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 100RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 100 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 100RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 100RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("user_id & pass.txt","a") as FILE HANDLE  THEN 
+                SET recored TO user_id+";"+user_pass+";"+STRING(Amount_Diposit)+";"+loan+";"+First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                        "*===============================================================*\n"
+                        "| -------The Saving Account Has Been Added Successfully-------- |\n"
+                        "*===============================================================*\n"
+                )
+            BREAK
+        
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+
+        ENDIF
+           ENDWITH
+       ENDDO
+ENDDEFINE
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Add A New Current Account
+DEFINE  Add_CCU_ACC() THEN 
+    CALL SET user_id TO genid("Current Customer User") 
+    SET user_pass TO user_id
+    DISPLAY("User ID; ", user_id)
+    DISPLAY("User PassWord; ",user_pass)
+    SET First_Name           TO GET("=<< Please Enter Your First Name; ")
+    SET Last_Name            TO GET("=<< Please Enter Your Last Name; ")
+    DOWHILE True THEN 
+        TRY THEN 
+            SET Tele_No      TO FLOAT(GET("=<< Please Enter Your Telephone Number; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Telephone Number")
+    SET city                 TO GET("=<< Please Enter Your City; ")
+    SET email  TO GET("=<< Please Enter Your Emai; ")
+    DOWHILE "@" not IN email or ".com" not IN email THEN 
+        SET email TO GET("=<< Please Enter A Valid Email; ")  
+    SET AccType   TO "CCU"
+    SET loan TO "-"
+    DOWHILE True THEN 
+        TRY THEN 
+            Amount_Diposit  =FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+            BREAK
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+    DOWHILE Amount_Diposit < 500 THEN 
+        DISPLAY(
+                "*===========================================================*\n"
+                "| -----For An Opening Account You Need Minimum 500RM------- |\n"
+                "*===========================================================*"
+            )
+        TRY THEN 
+            SET Amount_Diposit  TO FLOAT(GET("=<< Please Enter Your Amount That You Want Deposit Minimum 500RM; "))
+        EXCEPT  ValueError THEN 
+            DISPLAY("please Ennter A valid Amount")
+
+    ELSE THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET age TO FLOAT(GET("=<< Please Enter your age; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("please Ennter A valid Age")
+        DOWHILE age >= 18 THEN 
+            WITH  OPEN ("user_id & pass.txt","a") as FILE HANDLE  THEN 
+                SET recored TO user_id+";"+user_pass+";"+STRING(Amount_Diposit)+";"+loan+";"+First_Name+";"+Last_Name+";"+STRING(Tele_No)+";"+city+";"+email+";"+AccType+";"+STRING(age)+"\n"
+                FILE HANDLE WRITE(recored)
+                DISPLAY(
+                        "*================================================================*\n"
+                        "| -------The Current Account Has Been Added Successfully-------- |\n"
+                        "*================================================================*\n"
+                )
+            BREAK
+        
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| -----You Are To Young For Opening Account------- |\n"
+                "*===================================================*"
+            )
+        
+        ENDIF
+           ENDWITH
+       ENDDO
+ 
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays All The Users
+DEFINE  Display_All_US() THEN 
+    SET allrec TO []# TO All Recored
+    WITH  OPEN("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        LOOP line IN FILE HANDLE  THEN 
+                allrecAPPEND(line.strip().split(";"))
+        DISPLAY("="*157)
+        DISPLAY("|"+"Usre ID".center(10)+"|"+"User Password".center(15)+"|"+"Balance".center(15)+"|"+"Loan".center(10)+"|"+"First Name".center(15)+"|"+"Last Name".center(15)+"|"+"Tele No".center(15)+"|"+"City".center(10)+"|"+"Email".center(15)+"|"+"Account Type".center(15)+"|"+"Age".center(10)+"|")
+        DISPLAY("="*157)
+        LOOP cnt IN RANGE(0,LENGTH(allrec)) THEN  #cnt Counter
+            DISPLAY("|"+allrec[cnt][0].center(10)+"|"+allrec[cnt][1].center(15)+"|"+allrec[cnt][2].center(15)+"|"+allrec[cnt][3].center(10)+"|"+allrec[cnt][4].center(15)+"|"+allrec[cnt][5].center(15)+"|"+allrec[cnt][6].center(15)+"|"+allrec[cnt][7].center(10)+"|"+allrec[cnt][8].center(15)+"|"+allrec[cnt][9].center(15)+"|"+allrec[cnt][10].center(10)+"|"+"\n")
+        GET("Press Enter to continue...\n")
+
+                
+        ENDLOOP
+      ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays All The Pendings Accounts Thats Need To be Opend
+DEFINE  Display_All_Pending() THEN 
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN ("Fourm.txt","r") as FILE HANDLE  THEN 
+        LOOP line IN FILE HANDLE  THEN 
+            allrecAPPEND(line.strip().split(";")) 
+        DISPLAY("="*124)
+        DISPLAY("|"+"First Name".center(15)+"|"+"Last Name".center(15)+"|"+"Tele No".center(15)+"|"+"City".center(15)+"|"+"Email".center(15)+"|"+"Balance".center(15)+"|"+"Account Type".center(15)+"|"+"Age".center(10)+"|")
+        DISPLAY("="*124)
+        LOOP cnt IN RANGE(0,LENGTH(allrec)) THEN  #cnt Counter
+            DISPLAY("|"+allrec[cnt][0].center(15)+"|"+allrec[cnt][1].center(15)+"|"+allrec[cnt][2].center(15)+"|"+allrec[cnt][3].center(15)+"|"+allrec[cnt][4].center(15)+"|"+allrec[cnt][5].center(15)+"|"+allrec[cnt][6].center(15)+"|"+allrec[cnt][7].center(10)+"|"+"\n")
+        GET("Press Enter to continue...\n")
+        
+
+        ENDLOOP
+     ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Generate A New ID For A New Account
+SET def genid(perm) THEN  # genid TO Generate A New ID , Prem TO premeter
+    WITH  OPEN ("ID.txt","r") as IDFILE HANDLE  THEN 
+        SET record TO IDFILE HANDLE .readline()
+        SET recordlist TO record.strip().split(";")
+        IF perm == "Admin User" THEN 
+            SET pref TO "AU" #pref TO Prefex 
+            SET oldid TO recordlist[0][2 THEN ]
+        ELSEIF perm == "Current Customer User" THEN 
+            SET pref TO "CCU"
+            SET oldid TO recordlist[1][3 THEN ]
+        ELSEIF perm == "Islamic Customer User" THEN 
+            SET pref TO "ICU"
+            SET oldid TO recordlist[2][3 THEN ]
+        ELSEIF perm == "Saving Customer User" THEN 
+            SET pref TO "SAV"
+            SET oldid TO recordlist[3][3 THEN ]
+        SET nextid TO int(oldid) + 1
+        IF LENGTH(STRING(nextid)) == 1 THEN 
+            SET newid TO "0000" + STRING(nextid)
+        ELSEIF LENGTH(STRING(nextid)) == 2 THEN 
+            SET newid TO "000" + STRING(nextid)
+        ELSEIF LENGTH(STRING(nextid)) == 3 THEN 
+            SET newid TO "00" + STRING(nextid)
+        ELSEIF LENGTH(STRING(nextid)) == 4 THEN 
+            SET newid TO "0" +STRING(nextid)
+        ELSEIF LENGTH(STRING(nextid)) == 5 THEN 
+            SET newid TO STRING(nextid)
+        SET newid TO pref + newid
+        IF perm == "Admin User" THEN 
+            SET recordlist[0] TO newid
+        ELSE THEN 
+            SET recordlist[1] TO newid
+        SET record TO ";"JOIN(recordlist)
+        WITH  OPEN ("ID.txt","w") as FILE HANDLE  THEN 
+            FILE HANDLE WRITE(record)
+            RETURN newid
+            
+       ENDIF
+     ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays The Admin Customer Menu
+DEFINE  Admin_Menu(login_Details) THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*==================================================*\n"
+        "| ---------- Welcome to Admin User Menu ---------- |\n"
+        "*==================================================*\n"
+        "| =<< 1.      Add Current Customer Acount      >>= |\n"
+        "| =<< 2.       Add Islamic Customer Acount     >>= |\n"
+        "| =<< 3.      Display All Pending Accounts     >>= |\n"
+        "| =<< 4.          Change The Passsword         >>= |\n"
+        "| =<< 5.          Change The User Name         >>= |\n"
+        "| =<< 6.        Show All The TranAction        >>= |\n"
+        "| =<< 7.       Add Saving Customer Acount      >>= |\n"
+        "| =<< 8.           Return To Main Menu         >>= |\n"
+        "| =<< 9.               Exit/Quit               >>= |\n"
+        "*==================================================*\n"
+    )
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+
+        IF choiceNumber == "1" THEN 
+            CALL Add_CCU_ACC()#Add Current Customer User 
+            CALL RETURN Admin_Menu(login_Details) 
+        
+        ELSEIF choiceNumber == "2" THEN 
+            CALL Add_ICU_ACC()#Add Islamic Customer User 
+            CALL RETURN Admin_Menu(login_Details) 
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL Display_All_Pending() 
+            CALL RETURN Admin_Menu(login_Details) 
+        
+        ELSEIF choiceNumber == "4" THEN 
+            CALL Change_Pass(login_Details)# Change The Password 
+            CALL RETURN Admin_Menu(login_Details) 
+
+        ELSEIF choiceNumber == "5" THEN 
+            CALL Change_User_Name(login_Details) 
+            CALL RETURN Admin_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "6" THEN 
+            CALL Show_All_Trans()# Show All Users TransAction 
+            CALL RETURN Admin_Menu(login_Details) 
+
+
+        ELSEIF choiceNumber == "7" THEN 
+            CALL Add_Sa_aCC() #Add Saving Customer User 
+            CALL RETURN Admin_Menu(login_Details) 
+
+        ELSEIF choiceNumber == "8" THEN 
+            CALL RETURN main_menu() 
+
+        ELSEIF choiceNumber == "9" THEN 
+            CALL exit() 
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-9   |\n"
+            "*===================*\n"
+        )
+            CALL RETURN Admin_Menu() 
+
+       ENDIF
+     ENDDO
+ENDWITH
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Calculate & Convert The RM into Diffrent Currency's
+DEFINE  Currncy_Conv_Calc() THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*==========================================================*\n"
+        "| ---------- Curnncey Converter Calculatour Menu --------- |\n"
+        "*==========================================================*\n"
+        "| =<< 1.                    US Dollar                  >>= |\n"
+        "| =<< 2.                  Kuwaiti dinar                >>= |\n"
+        "| =<< 3.                      Euro                     >>= |\n"
+        "| =<< 4.                Indonesian Rupiah              >>= |\n"
+        "| =<< 5.                  chinese yuan                 >>= |\n"
+        "| =<< 6.               Return To Main Menu             >>= |\n"
+        "| =<< 7.                    Exit/Quit                  >>= |\n"
+        "*==========================================================*\n"
+    )
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+        IF choiceNumber == "1" THEN 
+            SET Amount TO FLOAT(GET("Please Enter The You wan't to convert From RM To USD; "))
+            SET result TO Amount   * 0.24
+            DISPLAY(f"The Amount is; {result} $")
+
+        ELSEIF choiceNumber == "2" THEN 
+            SET Amount TO FLOAT(GET("Please Enter The You wan't to convert From RM To KD; "))
+            SET result TO Amount   * 0.072
+            DISPLAY(f"The Amount is; {result} KD")
+
+        ELSEIF choiceNumber == "3" THEN 
+            SET Amount TO FLOAT(GET("Please Enter The You wan't to convert From RM To EU; "))
+            SET result TO Amount   * 0.21
+            DISPLAY(f"The Amount is; {result} €")
+
+        ELSEIF choiceNumber == "4" THEN 
+            SET Amount TO FLOAT(GET("Please Enter The You wan't to convert From RM To IDR; "))
+            SET result TO Amount   * 3394.01
+            DISPLAY(f"The Amount is; {result} Rp")
+
+        ELSEIF choiceNumber == "5" THEN 
+            SET Amount TO FLOAT(GET("Please Enter The You wan't to convert From RM To CNY; "))
+            SET result TO Amount   * 1.50
+            DISPLAY(f"The Amount is; {result} ¥")
+
+        ELSEIF choiceNumber == "6" THEN 
+            CALL main_menu() 
+
+        ELSEIF choiceNumber == "7" THEN 
+            CALL exit() 
+            
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-7   |\n"
+            "*===================*\n"
+        )
+        CALL Currncy_Conv_Calc() 
+
+    
+        ENDIF
+      ENDDO
+ENDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays The Current Customer Menu
+DEFINE  Cureent_Customer_Menu(login_Details) THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*=====================================================*\n"
+        "| ---------- Welcome to Customer User Menu ---------- |\n"
+        "*=====================================================*\n"
+        "| =<< 1.             Withdrawing Money            >>= |\n"
+        "| =<< 2.             Depositing Money             >>= |\n"
+        "| =<< 3.            Display My Details            >>= |\n"
+        "| =<< 4.                loan Menu                 >>= |\n"
+        "| =<< 5.           Change The Password            >>= |\n"
+        "| =<< 6.             Pay Monthly Loan             >>= |\n"
+        "| =<< 7.             Report Statement             >>= |\n"
+        "| =<< 8.             Return To Main Menu          >>= |\n"
+        "| =<< 9.                 Exit/Quit                >>= |\n"
+        "*=====================================================*\n"
+    )
+    
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+
+        IF choiceNumber == "1" THEN 
+            CALL WithDrraw(login_Details) 
+            
+
+        ELSEIF choiceNumber == "2" THEN 
+            CALL Deposit(login_Details) 
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL Display_Details(login_Details) 
+
+        ELSEIF choiceNumber == "4" THEN 
+            CALL Current_Loan_Menu(login_Details) 
+
+        ELSEIF choiceNumber == "5" THEN 
+            CALL Change_Pass(login_Details) 
+
+        ELSEIF choiceNumber == "6" THEN 
+            CALL pay_The_Loan(login_Details) 
+
+        ELSEIF choiceNumber == "7" THEN 
+            CALL Report(login_Details) 
+
+        ELSEIF choiceNumber == "8" THEN 
+            CALL RETURN main_menu() 
+
+        ELSEIF choiceNumber == "9" THEN 
+            CALL exit() 
+
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-8   |\n"
+            "*===================*\n"
+        )
+            CALL Cureent_Customer_Menu() 
+
+       ENDIF
+     ENDDO
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays The Islamic Customer Menu
+DEFINE  Islamic_Customer_Menu(login_Details) THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*=============================================================*\n"
+        "| ---------- Welcome to Islamic Customer User Menu ---------- |\n"
+        "*=============================================================*\n"
+        "| =<< 1.                 Withdrawing Money                >>= |\n"
+        "| =<< 2.                 Depositing Money                 >>= |\n"
+        "| =<< 3.                 Display My Details               >>= |\n"
+        "| =<< 4.                 Islamic loan Menu                >>= |\n"
+        "| =<< 5.                Change The Passsword              >>= |\n"
+        "| =<< 6.                 Pay Monthly Loan                 >>= |\n"
+        "| =<< 7.                  Report Statement                >>= |\n"
+        "| =<< 8.                Return To Main Menu               >>= |\n"
+        "| =<< 9.                    Exit/Quit                     >>= |\n"
+        "*=============================================================*\n"
+    )
+    
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+
+        IF choiceNumber == "1" THEN 
+            CALL WithDrraw(login_Details) 
+
+        ELSEIF choiceNumber == "2" THEN 
+            CALL Deposit(login_Details) 
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL Display_Details(login_Details) 
+
+        ELSEIF choiceNumber == "4" THEN 
+            CALL Islamic_Loan_Menu(login_Details) 
+
+        ELSEIF choiceNumber == "5" THEN 
+            CALL Change_Pass(login_Details) 
+
+        ELSEIF choiceNumber == "6" THEN 
+            CALL pay_The_Loan(login_Details) 
+        
+        ELSEIF choiceNumber == "7" THEN 
+            CALL Report(login_Details) 
+
+        ELSEIF choiceNumber == "8" THEN 
+            CALL RETURN main_menu() 
+
+        ELSEIF choiceNumber == "9" THEN 
+            CALL exit() 
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-9   |\n"
+            "*===================*\n"
+        )
+            CALL RETURN Islamic_Customer_Menu() 
+
+        ENDIF
+      ENDDO
+ENDDEFINE
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Display's All Account Details
+DEFINE  Display_Details(login_Details) THEN 
+    SET allrec TO []
+    WITH  OPEN("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        LOOP line IN FILE HANDLE  THEN 
+                allrecAPPEND(line.strip().split(";"))
+        DISPLAY("="*157)
+        DISPLAY("|"+"Usre ID".center(10)+"|"+"User Password".center(15)+"|"+"Balance".center(15)+"|"+"Loan".center(10)+"|"+"First Name".center(15)+"|"+"Last Name".center(15)+"|"+"Tele No".center(15)+"|"+"City".center(10)+"|"+"Email".center(15)+"|"+"Account Type".center(15)+"|"+"Age".center(10)+"|")
+        DISPLAY("="*157)
+        LOOP cnt IN RANGE(0,LENGTH(allrec)) THEN 
+            IF (login_Details[0] == allrec[cnt][0]) THEN
+                    DISPLAY("|"+allrec[cnt][0].center(10)+"|"+allrec[cnt][1].center(15)+"|"+allrec[cnt][2].center(15)+"|"+allrec[cnt][3].center(10)+"|"+allrec[cnt][4].center(15)+"|"+allrec[cnt][5].center(15)+"|"+allrec[cnt][6].center(15)+"|"+allrec[cnt][7].center(10)+"|"+allrec[cnt][8].center(15)+"|"+allrec[cnt][9].center(15)+"|"+allrec[cnt][10].center(10)+"|"+"\n")
+        GET("Press Enter to continue...")
+
+            ENDIF
+         ENDLOOP
+    ENDWITH
+ENDDEFINE  
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Display's The Saving Account Menu
+DEFINE  Sa_aCC_Menu(login_Details) THEN 
+    DOWHILE True THEN 
+        DISPLAY(
+        "*============================================================*\n"
+        "| ---------- Welcome to Saving Customer User Menu ---------- |\n"
+        "*============================================================*\n"
+        "| =<< 1.                 Depositing Money                >>= |\n"
+        "| =<< 2.                 withdrawl  Money                >>= |\n"
+        "| =<< 3.                 Display My Details              >>= |\n"
+        "| =<< 4.                Change The Password              >>= |\n"
+        "| =<< 5.                  Report Statement               >>= |\n"
+        "| =<< 6.                Return To Main Menu              >>= |\n"
+        "| =<< 7.                    Exit/Quit                    >>= |\n"
+        "*============================================================*\n"
+    )
+    
+        SET choiceNumber TO GET("=<< Select Your Choice Number From The Above Menu; \n")
+
+
+
+        IF choiceNumber == "1" THEN 
+            CALL Deposit(login_Details) 
+
+        ELSEIF choiceNumber == "2" THEN 
+            CALL WithDrraw(login_Details) 
+
+
+        ELSEIF choiceNumber == "3" THEN 
+            CALL Display_Details() 
+
+
+        ELSEIF choiceNumber == "4" THEN 
+            CALL Change_Pass(login_Details) 
+
+
+        ELSEIF choiceNumber == "5" THEN 
+            CALL Report(login_Details) 
+
+
+        ELSEIF choiceNumber == "6" THEN  
+            CALL main_menu() 
+
+
+        ELSEIF choiceNumber == "7" THEN 
+            CALL exit() 
+
+
+        ELSE THEN 
+            DISPLAY(
+            "*===================*\n"
+            "| Invalid option    |\n"
+            "| Choose from 1-7   |\n"
+            "*===================*\n"
+        )
+            CALL RETURN Sa_aCC_Menu() 
+
+
+       ENDIF
+      ENDDO
+ENDDEFINE
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Make The Withdraw TransAction For The Customers
+DEFINE  WithDrraw(login_Details) THEN 
+    SET allrec TO []# TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        LOOP rec IN FILE HANDLE  THEN 
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        DOWHILE True THEN 
+            TRY THEN 
+                SET balance TO FLOAT(GET("=<< Please Enter The Amount you want to Withdraw; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec) #nor TO Number of The Recoreds
+        LOOP cnt IN RANGE(0,nor) THEN 
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt #cnt TO Counter
+                    BREAK
+        IF balance < FLOAT(allrec[ind][2]) THEN 
+            SET old_balance TO allrec[ind][2]
+            SET New_amount TO FLOAT(old_balance) - balance
+            SET allrec[ind][2] TO STRING(New_amount)
+            WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                    SET nor TO LENGTH(allrec)
+                    LOOP cnt IN RANGE(0,nor) THEN 
+                        SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                        FILE HANDLE WRITE(rec)
+                    DISPLAY(
+                "*==============================================*\n"
+                "| -----Your Have withdrawed Succsefully------- |\n"
+                "*==============================================*\n")
+                    DISPLAY(
+                "*===================================================*\n"
+                f"| -----Your Balance Now Is {allrec[ind][2]}------- |\n"
+                "*===================================================*\n")
+                    WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                            SET Withdraw TO STRING(balance)
+                            SET money TO STRING(New_amount)
+                            SET ID TO STRING(allrec[ind][0])
+                            WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                SET rec TO "Withdraw"";""-"+Withdraw+";"+money+";"+ID+";"+date+"\n"
+                                FILE HANDLE WRITE(rec)
+                        
+        ELSE THEN 
+            DISPLAY(
+                "*==================================================*\n"
+                "| ------------You don't Have Enogh Money----------- |\n"
+                "*===================================================*"
+            )
+            RETURN WithDrraw(login_Details)
+        
+        ENDIF
+                ENDWITH
+      ENDDO
+     ENDLOOP
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Make The Deposit TransAction For The Customers
+DEFINE  Deposit(login_Details) THEN 
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        DOWHILE True THEN 
+            TRY THEN 
+                SET balance TO FLOAT(GET("=<< Please Enter The Amount you want to Deposit; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET ind TO -1#ind TO index
+        SET nor TO LENGTH(allrec)#nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN  #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        IF balance < 10000 THEN 
+            SET old_balance TO allrec[ind][2]
+            SET New_amount TO FLOAT(old_balance) + balance
+            SET allrec[ind][2] TO STRING(New_amount)
+            WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                    SET nor TO LENGTH(allrec)
+                    LOOP cnt IN RANGE(0,nor) THEN 
+                        SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                        FILE HANDLE WRITE(rec)
+                    DISPLAY(
+                "*==============================================*\n"
+                "| -------Your Have Diposit Succsefully-------- |\n"
+                "*==============================================*")
+                    DISPLAY(
+                "*===================================================*\n"
+                f"| -----Your Balance Now Is {allrec[ind][2]}------- |\n"
+                "*===================================================*\n")
+                    WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                SET Deposite TO STRING(balance)
+                                SET money TO STRING(New_amount)
+                                SET ID TO STRING(allrec[ind][0])
+                                WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                    SET rec TO "Deposit"";""+"+Deposite+";"+money+";"+ID+";"+date+"\n"
+                                    FILE HANDLE WRITE(rec)
+                        
+        ELSE THEN 
+            DISPLAY(
+                "*=========================================================*\n"
+                "| -------You Can't deposit more than 10000 RM a Day------- |\n"
+                "*=========================================================*")
+            RETURN Deposit(login_Details)
+
+
+        ENDIF'
+                              ENDWITH
+     ENDDO
+ENDDEFINE
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Change The Password For The Super, Admin AND Customer Users
+DEFINE  Change_Pass(login_Details) THEN 
+    SET allrec TO []# TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        SET newpass TO GET("=<< Please Enter The new Password; ")
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec)#nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN   #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        
+        SET allrec[ind][1] TO newpass
+        WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                SET nor TO LENGTH(allrec)
+                LOOP cnt IN RANGE(0,nor) THEN 
+                    SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                    FILE HANDLE WRITE(rec)
+                DISPLAY(
+            "*====================================================================*\n"
+            "| ------------Your Password Have Been Changed Succsefully----------- |\n"
+            "*====================================================================*"
+                )
+
+               ENDIF
+                 ENDLOOP
+     ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Change The User Name Avilibale Only For The Super And Admin User
+DEFINE  Change_User_Name(login_Details) THEN 
+    SET allrec TO []# TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN  #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        SET newpass TO GET("=<< Please Enter The New User Name; ")
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec) #nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN   #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        
+        SET allrec[ind][0] TO newpass
+        WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                SET nor TO LENGTH(allrec)
+                LOOP cnt IN RANGE(0,nor) THEN 
+                    SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                    FILE HANDLE WRITE(rec)
+                DISPLAY(
+            "*=================================================================*\n"
+            "| ------------Your User Name Have Changed Succsefully------------ |\n"
+            "*=================================================================*"
+        )
+
+       ENDWITH
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Displays A Menu The Loan of Current Account 
+DEFINE  Current_Loan_Menu(login_Details) THEN 
+    DISPLAY(
+                "*===============================================*\n"
+                "| --             Enter Loan Type             -- |\n"
+                "*===============================================*\n"
+                "| =<< 1. Education Loan (Interest Rate; 1%) >>= |\n"
+                "| =<< 2.     Car Loan (Interest Rate; 6%)   >>= |\n"
+                "| =<< 3.    Home Loan (Interest Rate; 2%)   >>= |\n"
+                "| =<< 4.  Personal Loan (Interest Rate; 8%) >>= |\n"
+                "| =<< 5.          Back to Menu              >>= |\n"
+                "*===============================================*\n"
+   )
+
+    SET choiceNumber TO GET("=<< Choose loan type; ")
+
+    IF choiceNumber == "1" THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET interestRate TO FLOAT(1 / 100 / 12)
+        SET loanPayment TO round(loanAmount * (interestRate * (1 + interestRate) ** years) / (
+                        (1 + interestRate) ** years - 1))
+            
+        DISPLAY(
+                    "*=======================================*\n"
+                    f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+                    "*=======================================*\n"
+            )
+        SET status_loop TO True
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+    
+    
+    ELSEIF choiceNumber == '2' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET interestRate TO FLOAT(6 / 100 / 12)
+        SET loanPayment TO loanAmount * (interestRate * (1 + interestRate) ** years) / (
+                (1 + interestRate) ** years - 1)
+        DISPLAY(
+            "*==========================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+            "*==========================================*\n"
+        )
+
+        SET status_loop TO True
+        
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+                    
+    
+    ELSEIF choiceNumber == '3' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET interestRate TO FLOAT(2 / 100 / 12)
+        SET loanPayment TO loanAmount * (interestRate * (1 + interestRate) ** years) / (
+                (1 + interestRate) ** years - 1)
+        DISPLAY(
+            "*==========================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |"
+            "*==========================================*\n"
+        )
+
+        SET status_loop TO True
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+                
+
+    ELSEIF choiceNumber == '4' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET interestRate TO FLOAT(8 / 100 / 12)
+        SET loanPayment TO round(loanAmount * (interestRate * (1 + interestRate) ** years) / (
+                (1 + interestRate) ** years - 1))
+        DISPLAY(
+            "*============================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+            "*============================================*\n"
+        )
+        SET status_loop TO True
+        DOWHILE status_loop THEN 
+            DOWHILE status_loop THEN 
+                SET status TO GET("=<< Approve Or Reject Loan Status; ")
+                IF status == "Approve" THEN 
+                    CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                    BREAK
+
+                ELSEIF status == "Reject" THEN 
+                    DISPLAY(
+                                "*===============================*\n"
+                                "| The Payment has been rejected |\n"
+                                "*===============================*\n"
+                    )
+
+                ELSE THEN 
+                    DISPLAY(
+                                "*============================*\n"
+                                "| Incorrect GET, try again |\n"
+                                "*============================*\n"
+                    )
+
+
+
+    ELSEIF choiceNumber == '5' THEN 
+        CALL main_menu() 
+    
+
+    ELSE THEN 
+        DISPLAY(
+                    "*********************\n"
+                    "| Invalid option    |\n"
+                    "| Choose from 1-5   |\n"
+                    "*********************"
+        )
+        CALL Current_Loan_Menu() 
+  
+    ENDIF
+   ENDO
+ENDDEFINE
+   
+
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Display a Menu For The Loan OF The Islamic Account 
+DEFINE  Islamic_Loan_Menu(login_Details) THEN 
+    DISPLAY(
+                "*===============================================*\n"
+                "| --             Enter Loan Type             -- |\n"
+                "*===============================================*\n"
+                "| =<< 1. Education Loan (Interest Rate; 0%) >>= |\n"
+                "| =<< 2.     Car Loan (Interest Rate; 0%)   >>= |\n"
+                "| =<< 3.    Home Loan (Interest Rate; 0%)   >>= |\n"
+                "| =<< 4.  Personal Loan (Interest Rate; 0%) >>= |\n"
+                "| =<< 5.          Back to Menu              >>= |\n"
+                "*===============================================*\n"
+   )
+
+    SET choiceNumber TO GET("=<< Choose loan type; ")
+
+    IF choiceNumber == "1" THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET loanPayment TO FLOAT(loanAmount / 12)
+        DISPLAY(
+                    "*=======================================*\n"
+                    f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+                    "*=======================================*\n"
+            )
+        SET status_loop TO True
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+                
+    
+    ELSEIF choiceNumber == '2' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET loanPayment TO FLOAT(loanAmount / 12)
+        DISPLAY(
+            "*======================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+            "*======================================*\n"
+        )
+
+        SET status_loop TO True
+        
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+                    
+                
+    
+    ELSEIF choiceNumber == '3' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET loanPayment TO FLOAT(loanAmount / 12)
+        DISPLAY(
+            "*==========================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+            "*==========================================*\n"
+        )
+
+        SET status_loop TO True
+        
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+                
+    
+    ELSEIF choiceNumber == '4' THEN 
+        DOWHILE True THEN 
+            TRY THEN 
+                SET loanAmount TO FLOAT(GET("=<< Enter loan amount; "))
+                SET terms TO FLOAT(GET("=<< Enter loan terms IN years; "))
+                BREAK
+            EXCEPT  ValueError THEN 
+                DISPLAY("=<< Please Enter A Valid Amount =>>")
+        SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+        DOWHILE "/" not IN date THEN 
+            SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+        SET years TO FLOAT(terms * 12)
+        SET loanPayment TO FLOAT(loanAmount / 12)
+        DISPLAY(
+            "*==========================================*\n"
+            f"| The monthly payment is {loanPayment THEN .2f} RM |\n"
+            "*==========================================*\n"
+        )
+
+        SET status_loop TO True
+        
+        DOWHILE status_loop THEN 
+            SET status TO GET("=<< Approve Or Reject Loan Status; ")
+            IF status == "Approve" THEN 
+                CALL loan_deposit(login_Details,loanPayment,loanAmount,date) 
+                BREAK
+
+            ELSEIF status == "Reject" THEN 
+                DISPLAY(
+                            "*===============================*\n"
+                            "| The Payment has been rejected |\n"
+                            "*===============================*\n"
+                )
+
+            ELSE THEN 
+                DISPLAY(
+                            "*============================*\n"
+                            "| Incorrect GET, try again |\n"
+                            "*============================*\n"
+                )
+
+
+
+    ELSEIF choiceNumber == '5' THEN 
+        CALL main_menu() 
+    
+
+    ELSE THEN 
+        DISPLAY(
+                    "*********************\n"
+                    "| Invalid option    |\n"
+                    "| Choose from 1-5   |\n"
+                    "*********************"
+        )
+        CALL Current_Loan_Menu() 
+
+     ENDIF
+    ENDDO
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Deposit The Loan Amount Into The Custoumer Account
+DEFINE  loan_deposit(login_Details,loanPayment,loanAmount,date) THEN 
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN  #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec) #nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN   #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        
+        SET old_balance TO allrec[ind][2]
+        SET New_amount TO FLOAT(old_balance) + FLOAT(loanAmount)
+        SET allrec[ind][2] TO STRING(New_amount)
+        WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                SET nor TO LENGTH(allrec)
+                LOOP cnt IN RANGE(0,nor) THEN 
+                    SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                    FILE HANDLE WRITE(rec)
+                DISPLAY(
+            "*==============================================*\n"
+            "| -------Your Have Loaned Succsefully-------- |\n"
+            "*==============================================*"
+        )
+                DISPLAY(
+            "*===================================================*\n"
+            f"| -----Your Balance Now Is {allrec[ind][2]}------- |\n"
+            "*===================================================*\n"
+        )
+        CALL loan_deposit_pay(loanPayment,login_Details,date,loanAmount) 
+                    
+    
+        ENDLOOP
+       ENDWITH
+          ENDIF
+ENDDEFINE        
+        
+                    
+#=======================================================================================================================================================================
+
+#A Fuction That Saves The Monthly Loan ON The Custoers That He Need To Pay
+DEFINE  loan_deposit_pay(loanPayment,login_Details,date,loanAmount) THEN 
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec) #nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN   #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        
+        SET New_amount TO loanPayment
+        SET allrec[ind][3] TO STRING(New_amount)
+        WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                SET nor TO LENGTH(allrec)
+                LOOP cnt IN RANGE(0,nor) THEN 
+                    SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                    FILE HANDLE WRITE(rec)
+                DISPLAY(
+                "*==================================================================*\n"
+                f"| -----You Need To Pay; {allrec[ind][3]} By The Next Month------- |\n"
+                "*==================================================================*\n")
+                WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                SET Deposite TO STRING(loanAmount)
+                                SET money TO STRING(New_amount)
+                                SET ID TO STRING(allrec[ind][0])
+                                WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                    SET rec TO "Loan"";""+"+Deposite+";"+money+";"+ID+";"+date+"\n"
+                                    FILE HANDLE WRITE(rec)
+                
+        
+                ENDLOOP
+                   ENDIF
+ENDDEFINE
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Make The Customer Pay The Monthly Loan On Him
+DEFINE  pay_The_Loan(login_Details) THEN 
+    SET date TO GET("=<< Please Enter The Date IN This Format dd/mm/yyyy; ")
+    DOWHILE "/" not IN date THEN 
+        SET date TO GET("=<< Please Enter A A Valid Date IN This Format dd/mm/yyyy; ")
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN ("user_id & pass.txt","r") as FILE HANDLE  THEN 
+        SET for rec IN FILE HANDLE  THEN  #Rec TO Recored
+                  SET reclist TO rec.strip().split(";")
+                  allrecAPPEND(reclist)
+        
+        SET ind TO -1 #ind TO index
+        SET nor TO LENGTH(allrec) #nor TO Number of The Recoreds
+        SET for cnt IN RANGE(0,nor) THEN   #cnt TO Counter
+                IF login_Details[0] == allrec[cnt][0] THEN 
+                    SET ind TO cnt
+                    BREAK
+        IF STRING(allrec[ind][2]) != "-" THEN 
+            IF FLOAT(allrec[ind][2]) >= FLOAT(allrec[ind][3]) THEN 
+                SET old_balance TO allrec[ind][2]
+                SET New_amount TO FLOAT(old_balance) - FLOAT(allrec[ind][3])
+                SET allrec[ind][2] TO STRING(New_amount)
+                WITH  OPEN("user_id & pass.txt","w") as FILE HANDLE  THEN 
+                        SET nor TO LENGTH(allrec)
+                        LOOP cnt IN RANGE(0,nor) THEN 
+                            SET rec TO ";"JOIN(allrec[cnt])+"\n"
+                            FILE HANDLE WRITE(rec)
+                        DISPLAY(
+                    "*==============================================*\n"
+                    "| -------Your Have Payed Succsefully-------- |\n"
+                    "*==============================================*"
+                )
+                        DISPLAY(
+                    "*===================================================*\n"
+                    f"| -----Your Balance Now Is {allrec[ind][2]}------- |\n"
+                    "*===================================================*\n")
+                        WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                    SET Withdraw TO STRING(allrec[ind][3])
+                                    SET money TO STRING(New_amount)
+                                    SET ID TO STRING(allrec[ind][0])
+                                    WITH  OPEN("Transaction.txt", "a") as FILE HANDLE  THEN 
+                                        SET rec TO "Loan Pay"";""-"+Withdraw+";"+money+";"+ID+";"+date+"\n"
+                                        FILE HANDLE WRITE(rec)
+
+
+
+            ELSE THEN 
+                DISPLAY("*=================================================*\n"
+                      "| -------You Don't Have Enough Money To Pay------ |\n"
+                      "*=================================================*")
+        ELSE THEN 
+            DISPLAY("*==============================================*\n"
+                  "| -------You Don't Have Any Thing To Pay------ |\n"
+                  "*==============================================*")
+                            
+        ENDIF
+                                     ENDWITH
+      ENDDO
+ENDDEFINE
+
+
+
+#=======================================================================================================================================================================
+
+#A Fuction That Diplays For Customer His Transactions 
+DEFINE  Report(login_Details) THEN 
+    SET allrec TO [] # TO All Recored
+    WITH  OPEN("Transaction.txt","r") as FILE HANDLE  THEN 
+        LOOP line IN FILE HANDLE  THEN 
+            allrecAPPEND(line.strip().split(";"))
+    DISPLAY("="*85)
+    DISPLAY("Type OF Transaction".center(30)+"|"+"Amount".center(15)+"|"+"Balance".center(15)+"|"+"User ID".center(15)+"|"+"Date Of Tranaction".center(20)+"|")
+    DISPLAY("="*85)
+    SET for cnt IN RANGE(0,LENGTH(allrec)) THEN   #cnt TO Counter
+        IF (login_Details[0] == allrec[cnt][3]) THEN 
+            DISPLAY(allrec[cnt][0].center(30)+"|"+allrec[cnt][1].center(15)+"|"+allrec[cnt][2].center(15)+"|"+allrec[cnt][3].center(15)+"|"+allrec[cnt][4].center(20)+"|")
+        GET("Press Enter to continue...")
+        
+
+        ENDIF
+      ENDWITH
+         ENDLOOP
+ENDDEFINE
+
+    
+#=======================================================================================================================================================================
+
+#A Fuction That Show All the transacrions of Customer
+DEFINE  Show_All_Trans() THEN 
+    WITH  OPEN("Transaction.txt","r") as FILE HANDLE  THEN 
+        DISPLAY("="*85)
+        DISPLAY("Type OF Transaction".center(30)+"|"+"Amount".center(15)+"|"+"Balance".center(15)+"|"+"User ID".center(15)+"|"+"Date Of Tranaction".center(20)+"|")
+        DISPLAY("="*85)
+        SET for cnt IN FILE HANDLE  THEN   #cnt TO Counter
+            SET allrec TO cnt.strip().split(";")
+            DISPLAY(allrec[cnt][0].center(30)+"|"+allrec[cnt][1].center(15)+"|"+allrec[cnt][2].center(15)+"|"+allrec[cnt][3].center(15)+"|"+allrec[cnt][4].center(20)+"|")
+    GET("Press Enter to continue...")
+
+
+
+
+    
+      ENDWITH
+ENDDEFINE
+
+
+
+
+CALL main_menu() 
+
+
+
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Good By No Of The Line
