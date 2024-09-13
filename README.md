@@ -1,6 +1,4 @@
-Here’s a more detailed version of the `README.md` file for your **Bank Management System** project. It expands on each feature, includes more thorough descriptions of the functions, and provides detailed usage instructions.
 
-```md
 # 🏦 Bank Management System
 
 ## Overview
@@ -170,6 +168,6 @@ For any questions or contributions, feel free to contact the author.
 ## 📜 License
 
 This project is open-source and free to use for educational purposes. [License]
-```
+
 
 
