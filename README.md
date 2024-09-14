@@ -144,6 +144,47 @@ python bank_system.py
 Upon running the script, the system will present the main menu. Users can then select an option to perform various operations.
 
 ---
+## THESE ARE SOME SAMPLES OF THE OUT PUT AND INPUT  
+
+### MAIN MENU:
+![image](https://github.com/user-attachments/assets/3951f053-8155-48c6-8fe5-34ef48a97b70)
+
+
+### OPEN ACCOUNT MENU:
+![image](https://github.com/user-attachments/assets/ae733c6c-324d-4451-9c16-4233555cef9c)
+
+
+### ISLAMIC OPEN ACCOUNT
+![image](https://github.com/user-attachments/assets/4a950db2-2450-497d-9f4d-fb1fd5c5d8e0)
+
+### CURRENT OPEN ACCOUNT
+![image](https://github.com/user-attachments/assets/3cfd9b00-88c1-4c5f-bc5a-ccdce4922ae3)
+
+### SAVING OPEN ACCOUNT
+![image](https://github.com/user-attachments/assets/b592c2d9-3682-4017-838b-bc247eab57e8)
+
+### CURRNCY CONVERTER CALCULATOUR
+![image](https://github.com/user-attachments/assets/224514d5-d0db-4b54-9f2c-9ed4fd55fc96)
+
+### LOGIN
+![image](https://github.com/user-attachments/assets/79f7814f-1ea7-45f4-979e-4adad52cdbbc)
+
+### ADD ADMIN
+![image](https://github.com/user-attachments/assets/e3b845c0-2fa0-434a-a12d-189886f8d4cf)
+
+### ADMIN MENU
+![image](https://github.com/user-attachments/assets/8507d80e-bf60-46d0-9136-5be371803920)
+
+### CUREENT CUSTOMER MENU
+![image](https://github.com/user-attachments/assets/3cf99c27-2ffd-4aee-ba37-57ace37821d1)
+
+### DISPLAY DETAILS
+![image](https://github.com/user-attachments/assets/74a4761f-aadd-4b95-b9a4-0b1a0bd9ddd2)
+
+
+
+
+---
 
 ## 🔮 Future Enhancements
 
